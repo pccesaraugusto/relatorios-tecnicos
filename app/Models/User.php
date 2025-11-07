@@ -2,47 +2,51 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'role_id', 'name', 'email', 'password', 'cpf', 'phone',
+        'avatar', 'digital_certificate', 'certificate_serial',
+        'certificate_valid_from', 'certificate_valid_until',
+        'certificate_issuer', 'is_active', 'last_login_at', 'last_login_ip',
+        'failed_login_attempts', 'locked_until', 'locale', 'timezone',
+        'theme', 'email_notifications', 'notification_preferences',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'certificate_valid_from' => 'datetime',
+        'certificate_valid_until' => 'datetime',
+        'is_active' => 'boolean',
+        'email_notifications' => 'boolean',
+        'notification_preferences' => 'array',
+    ];
+
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    // Relação com Role (pertença a um role)
+    public function role()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->belongsTo(Role::class);
+    }
+
+    // Relacionamento com relatórios onde é técnico
+    public function technicianReports()
+    {
+        return $this->hasMany(Report::class, 'technician_id');
+    }
+
+    // Relacionamento com relatórios onde é supervisor
+    public function supervisorReports()
+    {
+        return $this->hasMany(Report::class, 'supervisor_id');
     }
 }
