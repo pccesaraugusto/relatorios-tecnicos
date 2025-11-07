@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ReportSignature extends Model
 {
+    use HasFactory;
+    
     protected $fillable = [
         'report_id', 'signer_id', 'signer_role', 'signature_type', 'signature_hash',
         'signature_data', 'certificate_serial', 'certificate_issuer', 'certificate_subject',

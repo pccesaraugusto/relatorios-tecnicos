@@ -9,7 +9,8 @@ class ReportSignatureController extends Controller
 {
     public function index()
     {
-        return ReportSignature::all();
+        $signatures = ReportSignature::all();
+        return response()->json($signatures);
     }
 
     public function show($id)
