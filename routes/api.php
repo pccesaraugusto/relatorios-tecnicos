@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuditLogController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/audit-logs', [AuditLogController::class, 'index']);
+Route::get('/reports', [ReportController::class, 'index']);
 
 /*Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index']);

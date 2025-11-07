@@ -9,7 +9,8 @@ class RoleController extends Controller
 {
     public function index()
     {
-        return Role::all();
+        $reports = Report::all();
+        return response()->json($reports);
     }
 
     public function show($id)
