@@ -9,13 +9,14 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $reports = Report::all();
-        return response()->json($reports);
+        $roles = Role::all();
+        return response()->json($roles);
     }
 
     public function show($id)
     {
-        return Role::findOrFail($id);
+        $role = Role::findOrFail($id);
+        return response()->json($role);
     }
 
     public function store(Request $request)
@@ -27,24 +28,28 @@ class RoleController extends Controller
             'permissions' => 'nullable|json',
         ]);
 
-        return Role::create($data);
+        $role = Role::create($data);
+        return response()->json($role, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        $role = Role::findOrFail($id);
         $data = $request->validate([
-            'display_name' => 'sometimes|required',
+            'name' => 'required|unique:roles,name,' . $role->id,
+            'display_name' => 'required',
             'description' => 'nullable',
             'permissions' => 'nullable|json',
         ]);
+
         $role->update($data);
-        return $role;
+
+        return response()->json($role, 200);
     }
 
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        Role::destroy($id);
-        return response()->noContent();
+        $role->delete();
+
+        return response()->noContent(); // HTTP 204
     }
 }
