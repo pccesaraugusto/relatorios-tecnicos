@@ -2,14 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ReportValidation extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'report_id', 'validator_id', 'action', 'status_from', 'status_to',
-        'notes', 'rejection_reason', 'required_changes', 'notification_sent',
-        'notification_sent_at', 'ip_address', 'user_agent',
+        'report_id',
+        'validator_id',
+        'action',
+        'status_from',
+        'status_to',
+        'notes',
+        'rejection_reason',
+        'required_changes',
+        'notification_sent',
+        'notification_sent_at',
+        'ip_address',
+        'user_agent',
     ];
 
     protected $casts = [
