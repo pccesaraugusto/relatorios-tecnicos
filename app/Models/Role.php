@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'display_name', 'description', 'permissions'
+        'name',
+        'display_name',
+        'description',
+        'permissions',
     ];
 
     protected $casts = [
