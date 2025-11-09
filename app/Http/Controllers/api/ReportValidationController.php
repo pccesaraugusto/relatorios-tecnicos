@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
 use App\Http\Requests\ReportValidationRequest;
 use App\Models\ReportValidation;
