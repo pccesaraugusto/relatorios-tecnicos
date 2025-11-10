@@ -11,7 +11,8 @@ class CreateReportSignaturesTable extends Migration
         Schema::create('report_signatures', function (Blueprint $table) {
             $table->id();
             $table->foreignId('report_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            //$table->unsignedBigInteger('user_id');
+            //$table->foreignId('user_id')->constrained()->onDelete('cascade')->change();
             $table->text('signature');  // campo para a assinatura
             $table->timestamps();
         });

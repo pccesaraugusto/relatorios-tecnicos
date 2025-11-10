@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -49,4 +50,43 @@ class User extends Authenticatable
     {
         return $this->hasMany(Report::class, 'supervisor_id');
     }
+
+    public function hasRole($role)
+    {    
+        $role = strtolower($role);
+        $userRole = strtolower($this->role->name); 
+
+        if($role == $userRole){
+            $result = true;
+
+        } else{
+            $result = false;
+        }       
+        // Considera o campo role do usuário em minúsculas para evitar problemas de case
+        //$userRole = strtolower($this->role);
+        
+        // Loga o nome original da role do usuário
+        //Log::info('Peguei a role do usuário: '.$this->role->name);
+
+        //if (is_array($role)) {
+       //     Log::info('Recebi um array para verificar as roles');
+        //    $roles = array_map('strtolower', $role);
+        //    $result = in_array($userRole, $roles);
+        //    Log::info('Resultado da verificação para array: '.($result ? 'true' : 'false'));
+        //    return $result;
+       // }
+
+       // $result = $userRole === strtolower($role);
+        
+        return $result;
+    }
+
+    // No modelo User
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+
+
 }

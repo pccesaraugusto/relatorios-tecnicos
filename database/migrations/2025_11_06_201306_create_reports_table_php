@@ -12,11 +12,11 @@ class CreateReportsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content')->nullable();
-            $table->unsignedBigInteger('user_id'); // autor do relatório
+            //$table->unsignedBigInteger('user_id'); // autor do relatório
             $table->timestamps();
 
             // Chave estrangeira
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+           // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

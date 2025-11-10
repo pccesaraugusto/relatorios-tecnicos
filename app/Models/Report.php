@@ -11,7 +11,8 @@ class Report extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'uuid', 'technician_id', 'supervisor_id', 'title', 'description', 'report_type',
+        'uuid', 'technician_id', 'supervisor_id', 'user_id', 'file_path',// adicione user_id aqui
+        'title', 'description', 'report_type',
         'client_name', 'client_document', 'service_order', 'original_filename', 'original_file_path',
         'original_file_size', 'original_file_hash', 'original_mime_type', 'signed_file_path',
         'signed_file_hash', 'signed_at', 'qr_code', 'qr_code_image_path', 'status',
@@ -39,6 +40,11 @@ class Report extends Model
     public function supervisor()
     {
         return $this->belongsTo(User::class, 'supervisor_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // Relaciona o usuário que criou o relatório
     }
 
     public function parentReport()
